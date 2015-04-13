@@ -2,9 +2,11 @@ TimeTrack
 
 Android time tracking app.
 
+
 Life is hectic.
 Spending time on the wrong things is bad.
 Spending time on the wrong things, again and again, is REALLY bad.
+
 
 Use this app to help you track how you've been spending your time for the last week.
 
