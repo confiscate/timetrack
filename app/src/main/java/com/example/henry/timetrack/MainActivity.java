@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
@@ -14,6 +16,8 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.*;
 import com.amazonaws.regions.Regions;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -21,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.example.henry.MESSAGE";
     public CognitoCachingCredentialsProvider credentialsProvider;
     public CognitoSyncManager syncClient;
+    private String[] hours = new String[24];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +66,28 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void fillHoursLog() {
-        final ListView hourslog = (ListView) findViewById(R.id.hourslog);
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
-    }
+        Calendar curTime = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("h:00 aa    dd-MM-yyyy");
+        for (int i = 0; i < 24; i++) {
+            hours[i] = dateFormat.format(curTime.getTime());
+            curTime.add(Calendar.HOUR, -1);
+        }
+        final ListView hoursLog = (ListView) findViewById(R.id.hourslog);
+        ArrayAdapter<String> hoursLogArrayAdapter =
+                new ArrayAdapter(this, android.R.layout.simple_list_item_1, hours);
+        hoursLog.setAdapter(hoursLogArrayAdapter);
 
+        final Intent intent = new Intent(this, DisplayMessageActivity.class);
+        hoursLog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                if (position < hours.length && hours[position] != null) {
+                    String message = "hmm " + hours[position];
+                    intent.putExtra(EXTRA_MESSAGE, message);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,17 +106,9 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void onNotificationsToggleClicked(View view) {
         if (((ToggleButton) view).isChecked()) {
 
         }
-    }
-
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        String message = "hmm";
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
     }
 }
