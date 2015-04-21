@@ -1,7 +1,8 @@
 TimeTrack
 
-Android time tracking app.
+![alt tag](https://github.com/confiscate/timetrack/blob/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
+Android time tracking app.
 
 Life is hectic.
 Spending time on the wrong things is bad.
