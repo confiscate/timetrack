@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,22 +20,29 @@ public class ChangeMessageActivity extends ActionBarActivity {
         Intent intent = getIntent();
         String hour = intent.getStringExtra(MainActivity.MODIFY_HOUR);
         String date = intent.getStringExtra(MainActivity.MODIFY_DATE);
+        String existingDesc = intent.getStringExtra(MainActivity.EXISTING_DESC);
 
         setContentView(R.layout.activity_display_message);
         ((TextView) findViewById(R.id.task_placeholder_hour)).setText(hour);
         ((TextView) findViewById(R.id.task_placeholder_date)).setText(date);
+        if (existingDesc != null) {
+            ((EditText) findViewById(R.id.edit_message)).setText(existingDesc);
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public void onBackPressed() {
+    public void onSave(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
 
         Intent result = new Intent();
         result.putExtra(TASK_DESC, message == null ? "" : message);
         setResult(Activity.RESULT_OK, result);
+        finish();
+    }
+
+    public void onCancel(View view) {
         finish();
     }
 

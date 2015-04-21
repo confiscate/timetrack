@@ -24,6 +24,7 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
     public final static String MODIFY_HOUR = "com.example.henry.MODIFY_HOUR";
     public final static String MODIFY_DATE = "com.example.henry.MODIFY_DATE";
+    public final static String EXISTING_DESC = "com.example.henry.EXISTING_DESC";
     public static final int MODIFY_TASK_DESC_REQUEST = 1;
 
     public CognitoCachingCredentialsProvider credentialsProvider;
@@ -35,6 +36,7 @@ public class MainActivity extends ActionBarActivity {
     private Dataset hourTaskDataset;
     private int modifyPosition = 0;
     private String[] hoursDisplay = new String[24];
+    private ArrayAdapter<String> hoursLogArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,14 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < 24; i++) {
             hoursDisplay[i] = hoursListItems[i].getDisplayMessage();
         }
+        if (hoursLogArrayAdapter != null) {
+            MainActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    hoursLogArrayAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     private void synchronizeDataset(Dataset dataset) {
@@ -84,12 +94,11 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < 24; i++) {
             hoursListItems[i] = new HoursListItem(hourFormat.format(curTime.getTime()),
                     dateFormat.format(curTime.getTime()), hourTaskDataset);
+            hoursDisplay[i] = hoursListItems[i].getDisplayMessage();
             curTime.add(Calendar.HOUR, -1);
         }
-        refreshList();
         final ListView hoursLog = (ListView) findViewById(R.id.hourslog);
-        ArrayAdapter<String> hoursLogArrayAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_list_item_1, hoursDisplay);
+        hoursLogArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, hoursDisplay);
         hoursLog.setAdapter(hoursLogArrayAdapter);
 
         final Intent intent = new Intent(this, ChangeMessageActivity.class);
@@ -98,6 +107,8 @@ public class MainActivity extends ActionBarActivity {
                     if (position < hoursListItems.length && hoursListItems[position] != null) {
                         intent.putExtra(MODIFY_HOUR, hoursListItems[position].getHour());
                         intent.putExtra(MODIFY_DATE, hoursListItems[position].getDate());
+                        String key = hoursListItems[position].getKey();
+                        intent.putExtra(EXISTING_DESC, hourTaskDataset.get(key));
                         modifyPosition = position;
                         startActivityForResult(intent, MODIFY_TASK_DESC_REQUEST);
                     }
@@ -116,8 +127,12 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     hourTaskDataset.put(key, newTaskDesc);
                 }
-                synchronizeDataset(hourTaskDataset);
-                refreshList();
+                hourTaskDataset.synchronize(new DefaultSyncCallback() {
+                    @Override
+                    public void onSuccess(Dataset dataset, List newRecords) {
+                        refreshList();
+                    }
+                });
             }
         }
     }
