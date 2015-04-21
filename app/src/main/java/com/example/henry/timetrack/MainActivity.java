@@ -1,5 +1,6 @@
 package com.example.henry.timetrack;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,22 +21,27 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-
 public class MainActivity extends ActionBarActivity {
-    public final static String EXTRA_MESSAGE = "com.example.henry.MESSAGE";
+    public final static String MODIFY_HOUR = "com.example.henry.MODIFY_HOUR";
+    public final static String MODIFY_DATE = "com.example.henry.MODIFY_DATE";
+    public static final int MODIFY_TASK_DESC_REQUEST = 1;
+
     public CognitoCachingCredentialsProvider credentialsProvider;
     public CognitoSyncManager syncClient;
-    private String[] hours = new String[24];
+    private HoursListItem[] hoursListItems = new HoursListItem[24];
+    private SimpleDateFormat hourFormat = new SimpleDateFormat("h:00 aa");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private Dataset notificationDataset;
+    private Dataset hourTaskDataset;
+    private int modifyPosition = 0;
+    private String[] hoursDisplay = new String[24];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //authenticateAWS();
-        //syncAWS()
-
         setContentView(R.layout.activity_main);
-
         fillHoursLog();
     }
 
@@ -43,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
         credentialsProvider = new CognitoCachingCredentialsProvider(
                 this, // Context
                 "", // Identity Pool ID
-                null // Region
+                Regions.US_EAST_1 // Region
         );
 
         // Initialize the Cognito Sync client
@@ -51,42 +57,68 @@ public class MainActivity extends ActionBarActivity {
                 this,
                 Regions.US_EAST_1, // Region
                 credentialsProvider);
-    }
 
-    private void syncAWS() {
         // Create a record in a dataset and synchronize with the server
-        Dataset dataset = syncClient.openOrCreateDataset("lemontea");
-        dataset.put("vita", "hentest2");
-
-        dataset.synchronize(new DefaultSyncCallback() {
+        hourTaskDataset = syncClient.openOrCreateDataset("hourTaskDataset");
+        hourTaskDataset.synchronize(new DefaultSyncCallback() {
+            @Override
+            public void onSuccess(Dataset dataset, List newRecords) {
+            }
+        });
+        notificationDataset = syncClient.openOrCreateDataset("notificationDataset");
+        notificationDataset.synchronize(new DefaultSyncCallback() {
             @Override
             public void onSuccess(Dataset dataset, List newRecords) {
             }
         });
     }
 
+    private void refreshList() {
+        for (int i = 0; i < 24; i++) {
+            hoursDisplay[i] = hoursListItems[i].getDisplayMessage();
+        }
+    }
+
     private void fillHoursLog() {
         Calendar curTime = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("h:00 aa    dd-MM-yyyy");
         for (int i = 0; i < 24; i++) {
-            hours[i] = dateFormat.format(curTime.getTime());
+            hoursListItems[i] = new HoursListItem(hourFormat.format(curTime.getTime()),
+                    dateFormat.format(curTime.getTime()), hourTaskDataset);
             curTime.add(Calendar.HOUR, -1);
         }
+        refreshList();
         final ListView hoursLog = (ListView) findViewById(R.id.hourslog);
         ArrayAdapter<String> hoursLogArrayAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_list_item_1, hours);
+                new ArrayAdapter(this, android.R.layout.simple_list_item_1, hoursDisplay);
         hoursLog.setAdapter(hoursLogArrayAdapter);
 
-        final Intent intent = new Intent(this, DisplayMessageActivity.class);
-        hoursLog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                if (position < hours.length && hours[position] != null) {
-                    String message = "hmm " + hours[position];
-                    intent.putExtra(EXTRA_MESSAGE, message);
-                    startActivity(intent);
+        final Intent intent = new Intent(this, ChangeMessageActivity.class);
+            hoursLog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView parent, View v, int position, long id) {
+                if (position < hoursListItems.length && hoursListItems[position] != null) {
+                    intent.putExtra(MODIFY_HOUR, hoursListItems[position].getHour());
+                    intent.putExtra(MODIFY_DATE, hoursListItems[position].getDate());
+                    modifyPosition = position;
+                    startActivityForResult(intent, MODIFY_TASK_DESC_REQUEST);
+                }
+                }
+            });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MODIFY_TASK_DESC_REQUEST && resultCode == Activity.RESULT_OK) {
+            String key = hoursListItems[modifyPosition].getKey();
+            String newTaskDesc = data.getStringExtra(ChangeMessageActivity.TASK_DESC);
+            if (hourTaskDataset != null) {
+                if (newTaskDesc.equals("")) {
+                    hourTaskDataset.remove(key);
+                } else {
+                    hourTaskDataset.put(key, newTaskDesc);
                 }
             }
-        });
+            refreshList();
+        }
     }
 
     @Override
@@ -107,7 +139,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onNotificationsToggleClicked(View view) {
-        if (((ToggleButton) view).isChecked()) {
+        Boolean on = ((ToggleButton) view).isChecked();
+        notificationDataset.put("on", on.toString());
+        if (on) {
 
         }
     }

@@ -6,7 +6,8 @@
     <string name="notifications_off">OFF</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_display_message">My Message</string>
+    <string name="title_activity_display_message">Tasks Completed</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="task_placeholder"></string>
+    <string name="edit_message_hint">Description of completed tasks</string>
 </resources>
