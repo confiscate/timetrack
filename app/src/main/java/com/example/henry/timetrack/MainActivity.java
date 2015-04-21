@@ -95,12 +95,12 @@ public class MainActivity extends ActionBarActivity {
         final Intent intent = new Intent(this, ChangeMessageActivity.class);
             hoursLog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
-                if (position < hoursListItems.length && hoursListItems[position] != null) {
-                    intent.putExtra(MODIFY_HOUR, hoursListItems[position].getHour());
-                    intent.putExtra(MODIFY_DATE, hoursListItems[position].getDate());
-                    modifyPosition = position;
-                    startActivityForResult(intent, MODIFY_TASK_DESC_REQUEST);
-                }
+                    if (position < hoursListItems.length && hoursListItems[position] != null) {
+                        intent.putExtra(MODIFY_HOUR, hoursListItems[position].getHour());
+                        intent.putExtra(MODIFY_DATE, hoursListItems[position].getDate());
+                        modifyPosition = position;
+                        startActivityForResult(intent, MODIFY_TASK_DESC_REQUEST);
+                    }
                 }
             });
     }
