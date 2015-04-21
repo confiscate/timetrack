@@ -1,5 +1,7 @@
 TimeTrack
 
+file:///home/silvio/github/timetrack/app/src/main/res/drawable/ic_launcher.png
+
 Android time tracking app.
 
 
