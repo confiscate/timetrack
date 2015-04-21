@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //authenticateAWS();
+        authenticateAWS();
         setContentView(R.layout.activity_main);
         fillHoursLog();
     }
@@ -60,23 +60,23 @@ public class MainActivity extends ActionBarActivity {
 
         // Create a record in a dataset and synchronize with the server
         hourTaskDataset = syncClient.openOrCreateDataset("hourTaskDataset");
-        hourTaskDataset.synchronize(new DefaultSyncCallback() {
-            @Override
-            public void onSuccess(Dataset dataset, List newRecords) {
-            }
-        });
+        synchronizeDataset(hourTaskDataset);
         notificationDataset = syncClient.openOrCreateDataset("notificationDataset");
-        notificationDataset.synchronize(new DefaultSyncCallback() {
-            @Override
-            public void onSuccess(Dataset dataset, List newRecords) {
-            }
-        });
+        synchronizeDataset(notificationDataset);
     }
 
     private void refreshList() {
         for (int i = 0; i < 24; i++) {
             hoursDisplay[i] = hoursListItems[i].getDisplayMessage();
         }
+    }
+
+    private void synchronizeDataset(Dataset dataset) {
+        dataset.synchronize(new DefaultSyncCallback() {
+            @Override
+            public void onSuccess(Dataset dataset, List newRecords) {
+            }
+        });
     }
 
     private void fillHoursLog() {
@@ -116,8 +116,9 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     hourTaskDataset.put(key, newTaskDesc);
                 }
+                synchronizeDataset(hourTaskDataset);
+                refreshList();
             }
-            refreshList();
         }
     }
 
@@ -141,6 +142,7 @@ public class MainActivity extends ActionBarActivity {
     public void onNotificationsToggleClicked(View view) {
         Boolean on = ((ToggleButton) view).isChecked();
         notificationDataset.put("on", on.toString());
+        synchronizeDataset(notificationDataset);
         if (on) {
 
         }

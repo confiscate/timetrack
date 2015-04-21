@@ -8,15 +8,12 @@ import com.amazonaws.mobileconnectors.cognito.Dataset;
 public class HoursListItem {
     private String hour;
     private String date;
-    private String displayMessage;
-    private String task;
+    private Dataset hourTaskDataset;
 
     public HoursListItem(String hour, String date, Dataset hourTaskDataset) {
         this.hour = hour;
         this.date = date;
-        String taskDesc = hourTaskDataset == null ? "" : hourTaskDataset.get(hour + " " + date);
-        this.displayMessage = hour + "     " + date + (taskDesc == null ? "" :
-                "     " + taskDesc);
+        this.hourTaskDataset = hourTaskDataset;
     }
 
     public String getKey() {
@@ -32,10 +29,7 @@ public class HoursListItem {
     }
 
     public String getDisplayMessage() {
-        return displayMessage;
-    }
-
-    public String getTask() {
-        return task;
+        String taskDesc = hourTaskDataset == null ? "" : hourTaskDataset.get(hour + " " + date);
+        return hour + "     " + date + (taskDesc == null ? "" : "          " + taskDesc);
     }
 }
