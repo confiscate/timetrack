@@ -26,7 +26,9 @@ public class ChangeMessageActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.task_placeholder_hour)).setText(hour);
         ((TextView) findViewById(R.id.task_placeholder_date)).setText(date);
         if (existingDesc != null) {
-            ((EditText) findViewById(R.id.edit_message)).setText(existingDesc);
+            EditText editText = (EditText) findViewById(R.id.edit_message);
+            editText.setText(existingDesc);
+            editText.setSelection(existingDesc.length());
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
