@@ -1,17 +1,21 @@
 <resources>
     <string name="app_name">TimeTrack</string>
 
-    <string name="notifications">Notifications</string>
+    <string name="notifications">Reminders</string>
     <string name="notifications_on">ON</string>
     <string name="notifications_off">OFF</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_display_message">Tasks Completed</string>
+    <string name="title_settings_message">Settings</string>
 
     <string name="task_placeholder"></string>
     <string name="edit_message_hint">Description of completed tasks</string>
     <string name="save_content">Save</string>
     <string name="cancel_content">Cancel</string>
+
+    <string name="test_notifications">Test Reminder</string>
+    <string name="test_push_button">Ping</string>
 
     <string name="null_content">None</string>
 </resources>

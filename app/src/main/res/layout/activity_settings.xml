@@ -2,38 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.henry.timetrack.SettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
         <TextView
-            android:text="@string/notifications"
+            android:text="@string/test_notifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingRight="20dp"/>
+            android:paddingRight="20dp"
+            android:textSize="20sp"/>
 
-        <ToggleButton
-            android:id="@+id/togglebutton"
+        <Button
+            android:text="@string/test_push_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOn="@string/notifications_on"
-            android:textOff="@string/notifications_off"
-            android:onClick="onNotificationsToggleClicked"/>
+            android:onClick="sendPushNotification"/>
     </LinearLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
-
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/hourslog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>

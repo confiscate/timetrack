@@ -16,13 +16,13 @@ public class ChangeMessageActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display_message);
 
         Intent intent = getIntent();
         String hour = intent.getStringExtra(MainActivity.MODIFY_HOUR);
         String date = intent.getStringExtra(MainActivity.MODIFY_DATE);
         String existingDesc = intent.getStringExtra(MainActivity.EXISTING_DESC);
 
-        setContentView(R.layout.activity_display_message);
         ((TextView) findViewById(R.id.task_placeholder_hour)).setText(hour);
         ((TextView) findViewById(R.id.task_placeholder_date)).setText(date);
         if (existingDesc != null) {
@@ -50,12 +50,7 @@ public class ChangeMessageActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
