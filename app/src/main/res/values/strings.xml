@@ -12,4 +12,6 @@
     <string name="edit_message_hint">Description of completed tasks</string>
     <string name="save_content">Save</string>
     <string name="cancel_content">Cancel</string>
+
+    <string name="null_content">None</string>
 </resources>

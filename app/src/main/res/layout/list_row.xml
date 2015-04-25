@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/row_hour"
+        android:text="@string/null_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/task_color"
+        android:paddingLeft="20dp"
+        android:height="40dp"
+        android:width="120dp"/>
+
+    <TextView
+        android:id="@+id/row_date"
+        android:text="@string/null_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:height="40dp"
+        android:width="110dp"/>
+
+    <TextView
+        android:id="@+id/row_task"
+        android:text="@string/null_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/task_color"/>
+</LinearLayout>

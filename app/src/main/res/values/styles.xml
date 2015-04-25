@@ -6,5 +6,5 @@
     </style>
 
     <color name="modify_task_date_color">#333333</color>
-
+    <color name="task_color">#ff9933</color>
 </resources>
