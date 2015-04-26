@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
     public static SimpleDateFormat hourFormat = new SimpleDateFormat("h:00 aa");
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-
     private int modifyPosition = 0;
     private TaskArrayAdapter hoursLogArrayAdapter;
     public static StorageManager storageManager;
@@ -45,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         storageManager = new StorageManager();
-        storageManager.pullFromStorage(this);
+        storageManager.pullTasksFromStorage(this);
 
         ToggleButton notifyToggle = (ToggleButton) findViewById(R.id.togglebutton);
         notifyToggle.setChecked(storageManager.getNotificationsActive(this));
@@ -133,6 +132,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        storageManager.pushToStorage();
+        storageManager.pushTasksToStorage(this);
     }
 }

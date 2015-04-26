@@ -15,8 +15,9 @@ import java.util.List;
  * Created by silvio on 4/25/15.
  */
 public class StorageManager {
-    private static String notificationStore = "com.example.henry.NOTIFICATION_STORE";
-    private static String notificationStoreKey = "com.example.henry.NOTIFICATION_STORE_KEY";
+    private static String NOTIFICATION_STORE = "com.example.henry.NOTIFICATION_STORE";
+    private static String NOTIFICATION_STORE_KEY = "com.example.henry.NOTIFICATION_STORE_KEY";
+    private static String TASK_STORE = "com.example.henry.TASK_STORE";
 
 //    public CognitoSyncManager syncClient;
 //    private Dataset notificationDataset;
@@ -32,36 +33,57 @@ public class StorageManager {
     }
 
     public HoursListItem[] getHoursListItems() {
-        return this.hoursListItems;
+        return hoursListItems;
     }
 
     public HoursListItem getHoursListItem(int index) {
-        return this.hoursListItems[index];
+        return hoursListItems[index];
     }
 
     public void setHoursListItem(int index, HoursListItem item) {
-        this.hoursListItems[index] = item;
+        hoursListItems[index] = item;
     }
 
     public void setNotificationsActive(boolean notificationsActive, Context context) {
-        SharedPreferences.Editor notificationStoreEditor = context.getSharedPreferences(
-                notificationStore, Context.MODE_PRIVATE
-        ).edit();
-        notificationStoreEditor.putBoolean(notificationStoreKey, notificationsActive);
+        SharedPreferences.Editor notificationStoreEditor =
+                context.getSharedPreferences(NOTIFICATION_STORE, Context.MODE_PRIVATE)
+                       .edit();
+        notificationStoreEditor.putBoolean(NOTIFICATION_STORE_KEY, notificationsActive);
         notificationStoreEditor.commit();
     }
 
     public boolean getNotificationsActive(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
-                notificationStore, Context.MODE_PRIVATE);
-        return sharedPref.getBoolean(notificationStoreKey, false);
+                NOTIFICATION_STORE, Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(NOTIFICATION_STORE_KEY, false);
     }
 
-    public void pushToStorage() {
+    public void pushTasksToStorage(Context context) {
+        SharedPreferences.Editor storeEditor =
+                context.getSharedPreferences(TASK_STORE, Context.MODE_PRIVATE)
+                        .edit();
+        for (int i = 0; i < hoursListItems.length; i++) {
+            if (hoursListItems[i].getTaskDesc().trim().equals("")) {
+                storeEditor.remove(hoursListItems[i].getKey());
+                continue;
+            }
+            storeEditor.putString(hoursListItems[i].getKey(),
+                    hoursListItems[i].getTaskDesc());
+        }
+        storeEditor.commit();
     }
 
-    public void pullFromStorage(MainActivity activity) {
+    public void pullTasksFromStorage(MainActivity activity) {
         activity.fillHoursLog();
+        SharedPreferences sharedPref = activity.getSharedPreferences(
+                TASK_STORE, Context.MODE_PRIVATE);
+        for (int i = 0; i < hoursListItems.length; i++) {
+            String taskDesc = sharedPref.getString(hoursListItems[i].getKey(), "");
+            if (taskDesc.trim().equals("")) {
+                continue;
+            }
+            hoursListItems[i].setTaskDesc(taskDesc);
+        }
     }
 
 //    private void authenticateAWS() {
