@@ -2,12 +2,15 @@ package com.example.henry.timetrack;
 
 import com.amazonaws.mobileconnectors.cognito.Dataset;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
  * Created by henry on 4/20/15.
  */
-public class HoursListItem {
+public class HoursListItem implements Comparable {
     private String hour;
     private String date;
     private String taskDesc;
@@ -36,5 +39,18 @@ public class HoursListItem {
 
     public String getTaskDesc() {
         return this.taskDesc;
+    }
+
+    @Override
+    public int compareTo(Object other) {
+        SimpleDateFormat format = new SimpleDateFormat("h:00 aa dd-MM-yyyy");
+        HoursListItem otherItem = (HoursListItem) other;
+        try {
+            Date otherDate = format.parse(otherItem.hour + " " + otherItem.date);
+            Date thisDate = format.parse(hour + " " + date);
+            return thisDate.compareTo(otherDate);
+        } catch (ParseException e) {
+            return 0;
+        }
     }
 }

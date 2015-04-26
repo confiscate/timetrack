@@ -121,6 +121,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
+            case R.id.action_view_logs:
+                startActivity(new Intent(this, ViewLogsActivity.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

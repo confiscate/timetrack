@@ -9,7 +9,10 @@ import com.amazonaws.mobileconnectors.cognito.Dataset;
 import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
 import com.amazonaws.regions.Regions;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by silvio on 4/25/15.
@@ -84,6 +87,28 @@ public class StorageManager {
             }
             hoursListItems[i].setTaskDesc(taskDesc);
         }
+    }
+
+    public HoursListItem[] getAllListItems(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                TASK_STORE, Context.MODE_PRIVATE);
+        ArrayList<HoursListItem> allPastItems = new ArrayList();
+        Map<String, ?> storedTasks = sharedPref.getAll();
+        for (Map.Entry<String, ?> entry : storedTasks.entrySet()) {
+            String taskDesc = entry.getValue().toString();
+            if (taskDesc.trim().equals("")) {
+                continue;
+            }
+            int separatorIndex = entry.getKey().lastIndexOf(' ');
+            if (separatorIndex <= 0) {
+                continue;
+            }
+            String hour = entry.getKey().substring(0, separatorIndex);
+            String date = entry.getKey().substring(separatorIndex + 1);
+            allPastItems.add(new HoursListItem(hour, date, taskDesc));
+        }
+        Collections.sort(allPastItems);
+        return allPastItems.toArray(new HoursListItem[allPastItems.size()]);
     }
 
 //    private void authenticateAWS() {

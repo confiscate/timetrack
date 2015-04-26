@@ -6,9 +6,12 @@
     <string name="notifications_off">OFF</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_view_logs">View Logs</string>
+
     <string name="title_activity_display_message">Tasks Completed</string>
     <string name="title_settings_message">Settings</string>
     <string name="title_reminder_message">Tasks Completed</string>
+    <string name="title_view_logs">View Logs</string>
 
     <string name="task_placeholder"></string>
     <string name="edit_message_hint">Description of completed tasks</string>
