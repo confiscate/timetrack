@@ -44,6 +44,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.henry.timetrack.MainActivity" />
         </activity>
+        <activity
+            android:name=".ReminderActivity"
+            android:label="@string/title_reminder_message"
+            android:icon="@drawable/ic_launcher"
+            android:parentActivityName=".ReminderActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.henry.timetrack.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
