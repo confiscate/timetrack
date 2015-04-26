@@ -2,8 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:icon">@drawable/ic_launcher</item>
-        <item name="icon">@drawable/ic_launcher</item>
+        <item name="android:icon">@drawable/ic_launcher_small</item>
+        <item name="icon">@drawable/ic_launcher_small</item>
     </style>
 
     <style name="AppTheme.ActionBar">
@@ -12,6 +12,6 @@
     </style>
 
 
-    <color name="modify_task_date_color">#333333</color>
+    <color name="modify_task_date_color">#ff9933</color>
     <color name="task_color">#ff9933</color>
 </resources>

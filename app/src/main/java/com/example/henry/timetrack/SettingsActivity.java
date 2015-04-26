@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 
 public class SettingsActivity extends ActionBarActivity {
     private int notifyId = 1;
@@ -29,17 +31,21 @@ public class SettingsActivity extends ActionBarActivity {
     public void sendPushNotification(View view) {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setSmallIcon(R.drawable.ic_launcher_32)
+                        .setContentTitle("TimeTrack")
+                        .setContentText("What happened in the last hour?")
+                        .setAutoCancel(true);
 
-        Intent resultIntent = new Intent(this, ReminderActivity.class);
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.putExtra(MainActivity.EDIT_LATEST, true);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
 
         PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        this,
+                stackBuilder.getPendingIntent(
                         0,
-                        resultIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         notificationBuilder.setContentIntent(resultPendingIntent);

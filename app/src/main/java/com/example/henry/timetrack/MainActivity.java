@@ -28,21 +28,35 @@ public class MainActivity extends ActionBarActivity {
     public final static String MODIFY_HOUR = "com.example.henry.MODIFY_HOUR";
     public final static String MODIFY_DATE = "com.example.henry.MODIFY_DATE";
     public final static String EXISTING_DESC = "com.example.henry.EXISTING_DESC";
+    public final static String EDIT_LATEST = "com.example.henry.EDIT_LATEST";
     public static final int MODIFY_TASK_DESC_REQUEST = 1;
 
-    private SimpleDateFormat hourFormat = new SimpleDateFormat("h:00 aa");
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    public static SimpleDateFormat hourFormat = new SimpleDateFormat("h:00 aa");
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+
     private int modifyPosition = 0;
     private TaskArrayAdapter hoursLogArrayAdapter;
-    private StorageManager storageManager;
+    public static StorageManager storageManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.storageManager = new StorageManager();
+        storageManager = new StorageManager();
         storageManager.pullAWS(this);
+
+        Intent intent = getIntent();
+        if (intent != null && intent.getBooleanExtra(MainActivity.EDIT_LATEST, false)) {
+            HoursListItem[] hoursListItems = storageManager.getHoursListItems();
+            Intent latestTaskIntent = new Intent(this, ChangeMessageActivity.class);
+            latestTaskIntent.putExtra(MODIFY_HOUR, hoursListItems[0].getHour());
+            latestTaskIntent.putExtra(MODIFY_DATE, hoursListItems[0].getDate());
+            latestTaskIntent.putExtra(EXISTING_DESC, hoursListItems[0].getTaskDesc());
+            modifyPosition = 0;
+            startActivityForResult(latestTaskIntent, MODIFY_TASK_DESC_REQUEST);
+        }
     }
 
     private void refreshList() {
@@ -70,14 +84,14 @@ public class MainActivity extends ActionBarActivity {
         final Intent intent = new Intent(this, ChangeMessageActivity.class);
         hoursLog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-            HoursListItem[] hoursListItems = storageManager.getHoursListItems();
-            if (position < hoursListItems.length && hoursListItems[position] != null) {
-                intent.putExtra(MODIFY_HOUR, hoursListItems[position].getHour());
-                intent.putExtra(MODIFY_DATE, hoursListItems[position].getDate());
-                intent.putExtra(EXISTING_DESC, hoursListItems[position].getTaskDesc());
-                modifyPosition = position;
-                startActivityForResult(intent, MODIFY_TASK_DESC_REQUEST);
-            }
+                HoursListItem[] hoursListItems = storageManager.getHoursListItems();
+                if (position < hoursListItems.length && hoursListItems[position] != null) {
+                    intent.putExtra(MODIFY_HOUR, hoursListItems[position].getHour());
+                    intent.putExtra(MODIFY_DATE, hoursListItems[position].getDate());
+                    intent.putExtra(EXISTING_DESC, hoursListItems[position].getTaskDesc());
+                    modifyPosition = position;
+                    startActivityForResult(intent, MODIFY_TASK_DESC_REQUEST);
+                }
             }
         });
     }
