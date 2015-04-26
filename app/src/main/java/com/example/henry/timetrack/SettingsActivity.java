@@ -31,7 +31,7 @@ public class SettingsActivity extends ActionBarActivity {
     public void sendPushNotification(View view) {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher_32)
+                        .setSmallIcon(R.drawable.ic_launcher_white)
                         .setContentTitle("TimeTrack")
                         .setContentText("What happened in the last hour?")
                         .setAutoCancel(true);

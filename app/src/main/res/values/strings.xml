@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TimeTrack</string>
 
-    <string name="notifications">Reminders</string>
+    <string name="notifications">Periodic Reminders</string>
     <string name="notifications_on">ON</string>
     <string name="notifications_off">OFF</string>
 
