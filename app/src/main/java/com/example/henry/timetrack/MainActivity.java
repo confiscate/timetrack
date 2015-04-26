@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
@@ -129,7 +130,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onNotificationsToggleClicked(View view) {
-        storageManager.setNotificationsActive(((ToggleButton) view).isChecked(), this);
+        boolean checked = ((ToggleButton) view).isChecked();
+        Toast.makeText(this, "Periodic Reminders " + (checked ? "ON" : "OFF"),
+                Toast.LENGTH_SHORT).show();
+        storageManager.setNotificationsActive(checked, this);
     }
 
     @Override
