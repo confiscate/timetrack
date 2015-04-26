@@ -1,5 +1,8 @@
 package com.example.henry.timetrack;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
 import com.amazonaws.mobileconnectors.cognito.Dataset;
@@ -12,15 +15,16 @@ import java.util.List;
  * Created by silvio on 4/25/15.
  */
 public class StorageManager {
+    private static String notificationStore = "com.example.henry.NOTIFICATION_STORE";
+    private static String notificationStoreKey = "com.example.henry.NOTIFICATION_STORE_KEY";
 
-    public CognitoSyncManager syncClient;
-    private Dataset notificationDataset;
-    private Dataset hourTaskDataset;
-
-    public CognitoCachingCredentialsProvider credentialsProvider;
+//    public CognitoSyncManager syncClient;
+//    private Dataset notificationDataset;
+//    private Dataset hourTaskDataset;
+//
+//    public CognitoCachingCredentialsProvider credentialsProvider;
 
     // stuff that is persisted in AWS
-    private boolean notificationsActive = false;
     private HoursListItem[] hoursListItems = new HoursListItem[24];
 
 
@@ -39,15 +43,24 @@ public class StorageManager {
         this.hoursListItems[index] = item;
     }
 
-    public void setNotificationsActive(boolean notificationsActive) {
-        this.notificationsActive = notificationsActive;
+    public void setNotificationsActive(boolean notificationsActive, Context context) {
+        SharedPreferences.Editor notificationStoreEditor = context.getSharedPreferences(
+                notificationStore, Context.MODE_PRIVATE
+        ).edit();
+        notificationStoreEditor.putBoolean(notificationStoreKey, notificationsActive);
+        notificationStoreEditor.commit();
     }
 
-    public void pushAWS() {
-
+    public boolean getNotificationsActive(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                notificationStore, Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(notificationStoreKey, false);
     }
 
-    public void pullAWS(MainActivity activity) {
+    public void pushToStorage() {
+    }
+
+    public void pullFromStorage(MainActivity activity) {
         activity.fillHoursLog();
     }
 
@@ -71,13 +84,13 @@ public class StorageManager {
 //        synchronizeDataset(notificationDataset);
 //    }
 
-    private void synchronizeDataset(Dataset dataset) {
-        dataset.synchronize(new DefaultSyncCallback() {
-            @Override
-            public void onSuccess(Dataset dataset, List newRecords) {
-            }
-        });
-    }
+//    private void synchronizeDataset(Dataset dataset) {
+//        dataset.synchronize(new DefaultSyncCallback() {
+//            @Override
+//            public void onSuccess(Dataset dataset, List newRecords) {
+//            }
+//        });
+//    }
 
 
 //    notificationDataset.put("on", on.toString());

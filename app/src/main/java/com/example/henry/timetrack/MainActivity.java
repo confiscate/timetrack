@@ -45,8 +45,12 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         storageManager = new StorageManager();
-        storageManager.pullAWS(this);
+        storageManager.pullFromStorage(this);
 
+        ToggleButton notifyToggle = (ToggleButton) findViewById(R.id.togglebutton);
+        notifyToggle.setChecked(storageManager.getNotificationsActive(this));
+
+        // If started from a push notification, send user directly to modify the latest task
         Intent intent = getIntent();
         if (intent != null && intent.getBooleanExtra(MainActivity.EDIT_LATEST, false)) {
             HoursListItem[] hoursListItems = storageManager.getHoursListItems();
@@ -123,12 +127,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onNotificationsToggleClicked(View view) {
-        storageManager.setNotificationsActive(((ToggleButton) view).isChecked());
+        storageManager.setNotificationsActive(((ToggleButton) view).isChecked(), this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        storageManager.pushAWS();
+        storageManager.pushToStorage();
     }
 }
