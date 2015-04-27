@@ -30,7 +30,11 @@ public class NotificationService extends Service {
 
     @Override
     public void onDestroy() {
-        String hours = new StorageManager().getNotificationsPeriod(this);
+        StorageManager storageManager = new StorageManager();
+        if (!storageManager.getNotificationsActive(this)) {
+            return;
+        }
+        String hours = storageManager.getNotificationsPeriod(this);
         int minutes = (int) (Double.parseDouble(hours) * 60);
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarm.set(
