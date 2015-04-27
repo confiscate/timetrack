@@ -1,4 +1,4 @@
-package com.example.henry.timetrack;
+package com.henrystudios.henry.timetrack;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.henry.timetrack.R;
 
 /**
  * Created by silvio on 4/25/15.

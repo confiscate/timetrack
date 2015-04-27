@@ -1,4 +1,4 @@
-package com.example.henry.timetrack;
+package com.henrystudios.henry.timetrack;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.henry.timetrack.notifications.NotificationsManager;
+import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.notifications.NotificationsManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

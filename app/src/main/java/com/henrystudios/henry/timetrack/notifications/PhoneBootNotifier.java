@@ -1,4 +1,4 @@
-package com.example.henry.timetrack.notifications;
+package com.henrystudios.henry.timetrack.notifications;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

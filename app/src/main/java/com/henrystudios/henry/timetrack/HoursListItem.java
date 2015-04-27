@@ -1,11 +1,8 @@
-package com.example.henry.timetrack;
-
-import com.amazonaws.mobileconnectors.cognito.Dataset;
+package com.henrystudios.henry.timetrack;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by henry on 4/20/15.

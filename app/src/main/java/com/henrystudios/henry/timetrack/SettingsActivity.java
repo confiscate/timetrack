@@ -1,4 +1,4 @@
-package com.example.henry.timetrack;
+package com.henrystudios.henry.timetrack;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,7 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.henry.timetrack.notifications.NotificationsManager;
+import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.notifications.NotificationsManager;
 
 
 public class SettingsActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {

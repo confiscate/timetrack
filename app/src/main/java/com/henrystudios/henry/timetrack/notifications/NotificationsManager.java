@@ -1,4 +1,4 @@
-package com.example.henry.timetrack.notifications;
+package com.henrystudios.henry.timetrack.notifications;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
-import com.example.henry.timetrack.MainActivity;
+import com.henrystudios.henry.timetrack.MainActivity;
 import com.example.henry.timetrack.R;
 
 /**

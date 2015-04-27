@@ -1,13 +1,14 @@
-package com.example.henry.timetrack;
+package com.henrystudios.henry.timetrack;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.henry.timetrack.R;
 
 
 public class ChangeMessageActivity extends ActionBarActivity {

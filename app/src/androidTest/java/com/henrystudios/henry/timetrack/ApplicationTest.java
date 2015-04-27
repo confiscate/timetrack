@@ -1,4 +1,4 @@
-package com.example.henry.timetrack;
+package com.henrystudios.henry.timetrack;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

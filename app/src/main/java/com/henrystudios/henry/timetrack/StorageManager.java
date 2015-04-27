@@ -1,17 +1,10 @@
-package com.example.henry.timetrack;
+package com.henrystudios.henry.timetrack;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
-import com.amazonaws.mobileconnectors.cognito.Dataset;
-import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
-import com.amazonaws.regions.Regions;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
