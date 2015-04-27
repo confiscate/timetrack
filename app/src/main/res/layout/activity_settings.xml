@@ -40,7 +40,7 @@
         android:layout_marginBottom="10dp">
         <TextView
             android:text="@string/time_between_notifications"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:paddingRight="30dp"
             android:textSize="20sp"/>

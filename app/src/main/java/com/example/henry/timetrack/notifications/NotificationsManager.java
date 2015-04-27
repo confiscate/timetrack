@@ -21,7 +21,7 @@ public class NotificationsManager {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_launcher_white)
                         .setContentTitle("TimeTrack")
-                        .setContentText("What happened in the last hour?")
+                        .setContentText("What happened since the last reminder?")
                         .setAutoCancel(true);
 
         Intent resultIntent = new Intent(context, MainActivity.class);
