@@ -13,17 +13,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.R;
 import com.henrystudios.henry.timetrack.notifications.NotificationsManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends ActionBarActivity {
-    public final static String MODIFY_HOUR = "com.example.henry.MODIFY_HOUR";
-    public final static String MODIFY_DATE = "com.example.henry.MODIFY_DATE";
-    public final static String EXISTING_DESC = "com.example.henry.EXISTING_DESC";
-    public final static String EDIT_LATEST = "com.example.henry.EDIT_LATEST";
+    public final static String MODIFY_HOUR = "com.henrystudios.henry.MODIFY_HOUR";
+    public final static String MODIFY_DATE = "com.henrystudios.henry.MODIFY_DATE";
+    public final static String EXISTING_DESC = "com.henrystudios.henry.EXISTING_DESC";
+    public final static String EDIT_LATEST = "com.henrystudios.henry.EDIT_LATEST";
     public static final int MODIFY_TASK_DESC_REQUEST = 1;
 
     public static SimpleDateFormat hourFormat = new SimpleDateFormat("h:00 aa");

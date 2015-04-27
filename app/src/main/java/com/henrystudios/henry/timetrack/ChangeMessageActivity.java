@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.R;
 
 
 public class ChangeMessageActivity extends ActionBarActivity {
-    public static String TASK_DESC = "com.example.henry.TASK_DESC";
+    public static String TASK_DESC = "com.henrystudios.henry.TASK_DESC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

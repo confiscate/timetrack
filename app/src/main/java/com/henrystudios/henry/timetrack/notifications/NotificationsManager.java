@@ -8,7 +8,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 import com.henrystudios.henry.timetrack.MainActivity;
-import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.R;
 
 /**
  * Created by silvio on 4/26/15.

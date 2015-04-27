@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ListView;
 
-import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.R;
 
 
 public class ViewLogsActivity extends ActionBarActivity {

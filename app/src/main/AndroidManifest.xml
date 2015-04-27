@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.henry.timetrack" >
+    package="com.henrystudios.henry.timetrack" >
 
     <uses-sdk android:minSdkVersion="7"
         android:targetSdkVersion="17"/>

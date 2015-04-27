@@ -11,11 +11,11 @@ import java.util.Map;
  * Created by silvio on 4/25/15.
  */
 public class StorageManager {
-    private static String TASK_STORE = "com.example.henry.TASK_STORE";
+    private static String TASK_STORE = "com.henrystudios.henry.TASK_STORE";
 
-    private static String NOTIFICATION_STORE = "com.example.henry.NOTIFICATION_STORE";
-    private static String NOTIFICATION_STORE_ON_OFF = "com.example.henry.NOTIFICATION_STORE_KEY";
-    private static String NOTIFICATION_STORE_HOURS = "com.example.henry.NOTIFICATION_STORE_HOURS";
+    private static String NOTIFICATION_STORE = "com.henrystudios.henry.NOTIFICATION_STORE";
+    private static String NOTIFICATION_STORE_ON_OFF = "com.henrystudios.henry.NOTIFICATION_STORE_KEY";
+    private static String NOTIFICATION_STORE_HOURS = "com.henrystudios.henry.NOTIFICATION_STORE_HOURS";
 
 //    public CognitoSyncManager syncClient;
 //    private Dataset notificationDataset;

@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.henry.timetrack.R;
+import com.henrystudios.henry.timetrack.R;
 import com.henrystudios.henry.timetrack.notifications.NotificationsManager;
 
 
