@@ -16,3 +16,6 @@ What tasks surprised you?
 What tasks should you spend more or less time on next week?
 
 Find out! With this app.
+
+
+![alt tag](https://github.com/confiscate/timetrack/blob/master/screenshot.png)
