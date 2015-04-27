@@ -1,0 +1,38 @@
+package com.example.henry.timetrack.notifications;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
+/**
+ * Created by silvio on 4/26/15.
+ */
+public class NotificationService extends Service {
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        NotificationsManager.sendNotification(this);
+
+        // stop service so it does not stay in memory
+        stopSelf();
+
+        return START_NOT_STICKY;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarm.set(
+            alarm.RTC_WAKEUP,
+            System.currentTimeMillis() + (60 * 60 * 1000),
+            PendingIntent.getService(this, 0, new Intent(this, NotificationService.class), 0)
+        );
+    }
+}

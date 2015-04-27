@@ -8,12 +8,23 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:logo="@drawable/ic_launcher">
+
+        <service android:name=".notifications.NotificationService" />
+
+        <receiver android:name=".notifications.PhoneBootNotifier">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

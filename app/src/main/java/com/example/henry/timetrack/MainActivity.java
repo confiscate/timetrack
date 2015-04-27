@@ -2,7 +2,6 @@ package com.example.henry.timetrack;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,20 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.cognito.*;
-import com.amazonaws.regions.Regions;
+import com.example.henry.timetrack.notifications.NotificationsManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends ActionBarActivity {
     public final static String MODIFY_HOUR = "com.example.henry.MODIFY_HOUR";
@@ -38,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
     private int modifyPosition = 0;
     private TaskArrayAdapter hoursLogArrayAdapter;
     public static StorageManager storageManager;
+    private boolean notificationsActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,15 +124,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onNotificationsToggleClicked(View view) {
-        boolean checked = ((ToggleButton) view).isChecked();
-        Toast.makeText(this, "Periodic Reminders " + (checked ? "ON" : "OFF"),
+        notificationsActive = ((ToggleButton) view).isChecked();
+        Toast.makeText(this, "Periodic Reminders " + (notificationsActive ? "ON" : "OFF"),
                 Toast.LENGTH_SHORT).show();
-        storageManager.setNotificationsActive(checked, this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        if (notificationsActive) {
+            NotificationsManager.turnOnPeriodicNotifications(this);
+        }
+        storageManager.setNotificationsActive(notificationsActive, this);
         storageManager.pushTasksToStorage(this);
     }
 }
