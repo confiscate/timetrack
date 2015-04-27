@@ -18,9 +18,11 @@ import java.util.Map;
  * Created by silvio on 4/25/15.
  */
 public class StorageManager {
-    private static String NOTIFICATION_STORE = "com.example.henry.NOTIFICATION_STORE";
-    private static String NOTIFICATION_STORE_KEY = "com.example.henry.NOTIFICATION_STORE_KEY";
     private static String TASK_STORE = "com.example.henry.TASK_STORE";
+
+    private static String NOTIFICATION_STORE = "com.example.henry.NOTIFICATION_STORE";
+    private static String NOTIFICATION_STORE_ON_OFF = "com.example.henry.NOTIFICATION_STORE_KEY";
+    private static String NOTIFICATION_STORE_HOURS = "com.example.henry.NOTIFICATION_STORE_HOURS";
 
 //    public CognitoSyncManager syncClient;
 //    private Dataset notificationDataset;
@@ -51,14 +53,28 @@ public class StorageManager {
         SharedPreferences.Editor notificationStoreEditor =
                 context.getSharedPreferences(NOTIFICATION_STORE, Context.MODE_PRIVATE)
                        .edit();
-        notificationStoreEditor.putBoolean(NOTIFICATION_STORE_KEY, notificationsActive);
+        notificationStoreEditor.putBoolean(NOTIFICATION_STORE_ON_OFF, notificationsActive);
         notificationStoreEditor.commit();
     }
 
     public boolean getNotificationsActive(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 NOTIFICATION_STORE, Context.MODE_PRIVATE);
-        return sharedPref.getBoolean(NOTIFICATION_STORE_KEY, false);
+        return sharedPref.getBoolean(NOTIFICATION_STORE_ON_OFF, false);
+    }
+
+    public void setNotificationPeriod(String minutes, Context context) {
+        SharedPreferences.Editor notificationStoreEditor =
+                context.getSharedPreferences(NOTIFICATION_STORE, Context.MODE_PRIVATE)
+                        .edit();
+        notificationStoreEditor.putString(NOTIFICATION_STORE_HOURS, minutes);
+        notificationStoreEditor.commit();
+    }
+
+    public String getNotificationsPeriod(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                NOTIFICATION_STORE, Context.MODE_PRIVATE);
+        return sharedPref.getString(NOTIFICATION_STORE_HOURS, "1");
     }
 
     public void pushTasksToStorage(Context context) {

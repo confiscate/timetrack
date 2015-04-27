@@ -21,5 +21,17 @@
     <string name="test_notifications">Test Reminder</string>
     <string name="test_push_button">Ping</string>
 
+    <string name="time_between_notifications">Time Between Reminders</string>
+    <string-array name="time_between_notify">
+        <item>0.5</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>6</item>
+        <item>12</item>
+        <item>24</item>
+    </string-array>
+    <string name="units_between_notifications">hours</string>
+
     <string name="null_content">None</string>
 </resources>

@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import com.example.henry.timetrack.StorageManager;
+
 /**
  * Created by silvio on 4/26/15.
  */
@@ -28,10 +30,12 @@ public class NotificationService extends Service {
 
     @Override
     public void onDestroy() {
+        String hours = new StorageManager().getNotificationsPeriod(this);
+        int minutes = (int) (Double.parseDouble(hours) * 60);
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarm.set(
             alarm.RTC_WAKEUP,
-            System.currentTimeMillis() + (60 * 60 * 1000),
+            System.currentTimeMillis() + (minutes * 60 * 1000),
             PendingIntent.getService(this, 0, new Intent(this, NotificationService.class), 0)
         );
     }
