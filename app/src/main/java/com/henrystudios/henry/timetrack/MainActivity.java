@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.apptimize.Apptimize;
+import com.apptimize.ApptimizeTest;
 import com.henrystudios.henry.timetrack.R;
 import com.henrystudios.henry.timetrack.notifications.NotificationsManager;
 
@@ -56,6 +58,8 @@ public class MainActivity extends ActionBarActivity {
             modifyPosition = 0;
             startActivityForResult(latestTaskIntent, MODIFY_TASK_DESC_REQUEST);
         }
+
+        Apptimize.setup(this, "DSHqgH4fDAaitfccP39VKTpiPxcAMqw");
     }
 
     private void refreshList() {
