@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 
 import com.apptimize.Apptimize;
 import com.apptimize.ApptimizeTest;
+import com.apptimize.ApptimizeVar;
 import com.henrystudios.henry.timetrack.R;
 import com.henrystudios.henry.timetrack.notifications.NotificationsManager;
 
@@ -60,6 +61,8 @@ public class MainActivity extends ActionBarActivity {
         }
 
         Apptimize.setup(this, "DSHqgH4fDAaitfccP39VKTpiPxcAMqw");
+        ApptimizeVar<String> appDVsearchServerURL =
+                ApptimizeVar.createString("searchServerURL", "http://default.app.com");
     }
 
     private void refreshList() {
